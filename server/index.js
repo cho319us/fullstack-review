@@ -30,8 +30,16 @@ app.post('/repos', function (req, res) {
 });
 
 app.get('/repos', function (req, res) {
-  // TODO - your code here!
-  // This route should send back the top 25 repos
+  // get the top 25 repos from the database ordered by the number of fork in descending
+  db.getTopRepos()
+    .then(response => {
+      // send the reponse to client
+      res.status(201).send(response);
+    })
+    .catch(error => {
+      // send the reponse to client
+      res.status(400).send(error);
+    });
 });
 
 // Start server

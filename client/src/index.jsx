@@ -21,6 +21,23 @@ class App extends React.Component {
     });
   }
 
+  getRepos () {
+    // send GET request to /repos
+    $.get('/repos', (reposArr) => {
+      console.log("Get request succeed", reposArr);
+      // update the repos in state
+      this.setState({
+        repos: reposArr
+      });
+    });
+  }
+
+  // when the page loads, getRepos is invoked (send GET request to /repos)
+  // then the top 25 repos are displayed on the page
+  componentDidMount() {
+    this.getRepos();
+  }
+
   render () {
     return (<div>
       <h1>Github Fetcher</h1>

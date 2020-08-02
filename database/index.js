@@ -38,6 +38,23 @@ let save = (reposArr) => {
       }
     });
   }
-}
+};
+
+// This function should get retrieves the top 25 repos stored in the MongoDB
+// repos are ordered by the number of fork in descending
+/* Model.find() return «Query», so able to use Query.prototype.then() and Query.prototype.catch() */
+let getTopRepos = () => {
+  return Repo.find(null, null, {sort: {forkcount: -1}, limit: 25})
+    .then(topRepos => {
+      console.log("Succeed to get the repos from database: ", topRepos);
+      console.log("Length of the repos: ", topRepos.length);
+      return topRepos;
+    })
+    .catch(err => {
+      console.log("Failed to get the repos from database: ", err);
+      return err;
+    });
+};
 
 module.exports.save = save;
+module.exports.getTopRepos = getTopRepos;
