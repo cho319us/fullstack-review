@@ -18,6 +18,8 @@ class App extends React.Component {
     // send POST request to /repos
     $.post('/repos', {username: term}, () => {
       console.log("POST request succeed");
+      // update the page with the latest top 25 without requiring a page refresh
+      this.getRepos();
     });
   }
 
